@@ -1,12 +1,16 @@
-import Header from '../../components/header/header';
+// import Header from '../../components/header/header';
 import ReviewForm from '../../components/review-form/review-form';
 import Footer from '../../components/footer/footer';
 import { useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/index';
 import { useEffect } from 'react';
-import { fetchProductByIdAction } from '../../store/api-actions';
+import { fetchProductByIdAction, fetchReviewsAction } from '../../store/api-actions';
 import { getProduct } from '../../store/products-data/products-data.selectors';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
+import { getReviews, getReviewsErrorStatus } from '../../store/reviews-data/reviews-data.selectors';
+import NoReview from '../../components/no-review/no-review';
+import ReviewsError from '../../components/reviews-error/reviews-error';
+import ReviewsList from '../../components/reviews-list/reviews-list';
 
 
 function ProductScreen(): JSX.Element {
@@ -17,10 +21,15 @@ function ProductScreen(): JSX.Element {
   useEffect(() => {
     if (id) {
       dispatch(fetchProductByIdAction(id));
+      dispatch(fetchReviewsAction(id));
     }
   }, [id, dispatch]);
 
   const product = useAppSelector(getProduct);
+  const reviews = useAppSelector(getReviews);
+  const hasReviewsError = useAppSelector(getReviewsErrorStatus);
+
+  // console.log(reviews);
 
   if (!product) {
     return <NotFoundScreen />;
@@ -82,6 +91,10 @@ function ProductScreen(): JSX.Element {
         </div>
       </section>
       <ReviewForm />
+      {hasReviewsError && <ReviewsError id={id}/>}
+      {reviews.length === 0 && !hasReviewsError && <NoReview />}
+      <ReviewsList reviews={reviews} />
+
       <Footer />
     </div>
   );
