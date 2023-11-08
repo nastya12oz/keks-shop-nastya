@@ -1,12 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { ProductsData } from '../../types/state';
 import { NameSpace } from '../../const';
-import { fetchProductsListAction } from '../api-actions';
+import { fetchProductsListAction, fetchProductByIdAction } from '../api-actions';
 
 const initialState: ProductsData = {
   products: [],
   hasProductsError: false,
   isProductsDataLoading: false,
+  product: null,
+  hasProductError: false,
+  isProductDataLoading: false,
 };
 
 export const productsData = createSlice({
@@ -28,6 +31,19 @@ export const productsData = createSlice({
         state.products = [];
         state.hasProductsError = true;
         state.isProductsDataLoading = false;
+      })
+      .addCase(fetchProductByIdAction.pending, (state) => {
+        state.hasProductError = false;
+        state.isProductDataLoading = true;
+      })
+      .addCase(fetchProductByIdAction.fulfilled, (state, action) => {
+        state.product = action.payload;
+        state.hasProductError = false;
+        state.isProductDataLoading = false;
+      })
+      .addCase(fetchProductByIdAction.rejected, (state) => {
+        state.hasProductError = true;
+        state.isProductDataLoading = false;
       });
   }
 });

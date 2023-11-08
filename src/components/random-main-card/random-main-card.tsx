@@ -1,12 +1,16 @@
 import { TProductCardSmall } from '../../types/product';
+import { useNavigate } from 'react-router-dom';
+import { AppRoute } from '../../const';
 
 type RandomMainCardProps = {
   card: TProductCardSmall;
 }
 
 function RandomMainCard({ card }: RandomMainCardProps): JSX.Element {
+  const navigate = useNavigate();
+
   return (
-    <div className="card-item">
+    <div className="card-item" onClick={() => navigate(`${AppRoute.Product}`.replace(':id', card.id))}>
       <a className="card-item__img-link" href="#">
         <div className="card-item__img-wrapper">
           <picture>

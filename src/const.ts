@@ -1,5 +1,6 @@
 export const BACKEND_URL = 'https://grading.design.pages.academy/v0/keks';
 export const REQUEST_TIMEOUT = 5000;
+export const STARS_COUNT = 5;
 
 export enum ProductCategory {
   Bisque = 'bisque',
@@ -34,7 +35,7 @@ export enum AppRoute {
 export enum APIRoute {
   Products = '/products',
   Categories = '/categories',
-  Product = '/products/:id',
+  Product = '/products/',
   Favorites = '/favorites',
   Login = 'users/login',
   Registration = 'users/registration',
@@ -48,5 +49,11 @@ export enum APIRoute {
 export enum NameSpace {
   Products = 'PRODUCTS',
   User = 'USER',
-  Reviews = 'REVIEWS'
+  Reviews = 'REVIEWS',
+  Filters = 'FILTERS'
 }
+
+export const DateFormat = {
+  FULL_DATE_FORMAT: 'YYYY-MM-DD',
+  DATE_FORMAT: 'DD.MM',
+};
