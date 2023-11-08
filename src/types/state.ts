@@ -1,6 +1,7 @@
 import { store } from '../store/index';
 import { TProductCardSmallList, TProduct } from './product';
 import { TReviews, TReview } from './review';
+import { TFilterSortRating, TFilterSortDate } from '../../types/filters';
 
 export type State = ReturnType<typeof store.getState>;
 
@@ -25,3 +26,10 @@ export type ReviewsData = {
   lastReview: TReview | null;
   haslastReviewError: boolean;
 }
+
+export type FiltersData = {
+  // firstLevel: FirstLevelFilter | null;
+  // secondLevel: SecondLevelFilter[];
+  sortingByRating: TFilterSortRating;
+  sortingByDate: TFilterSortDate;
+};

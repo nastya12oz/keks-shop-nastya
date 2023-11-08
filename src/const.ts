@@ -49,7 +49,8 @@ export enum APIRoute {
 export enum NameSpace {
   Products = 'PRODUCTS',
   User = 'USER',
-  Reviews = 'REVIEWS'
+  Reviews = 'REVIEWS',
+  Filters = 'FILTERS'
 }
 
 export const DateFormat = {
