@@ -1,4 +1,4 @@
-function RegistrationScreen(): JSX.Element {
+function SignUpScreen(): JSX.Element {
   return(
     <div className="wrapper">
       <main>
@@ -48,5 +48,4 @@ function RegistrationScreen(): JSX.Element {
   );
 }
 
-export default RegistrationScreen;
-
+export default SignUpScreen;
