@@ -10,13 +10,9 @@ import ProductScreen from '../../pages/product-screen/product-screen';
 import LoginScreen from '../../pages/login-screen/login-screen';
 import SignUpScreen from '../../pages/sign-up-screen/sign-up-screen';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
-import { useAppSelector } from '../../hooks';
-import { getProductsList } from '../../store/products-data/products-data.selectors';
 
 
 function App(): JSX.Element {
-  const productsList = useAppSelector(getProductsList);
-  console.log(productsList);
 
   return(
     <HelmetProvider>
