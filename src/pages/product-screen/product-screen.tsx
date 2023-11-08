@@ -12,9 +12,9 @@ import NoReview from '../../components/no-review/no-review';
 import ReviewsError from '../../components/reviews-error/reviews-error';
 import ReviewsList from '../../components/reviews-list/reviews-list';
 import Rating from '../../components/rating/rating';
-import FilterSort from '../../components/filter-sort/filter-sort';
-import { sortByDate, sortByRating } from '../../utils/utils';
-import { getSortingTypeByDate, getSortingTypeByRating } from '../../store/filters-process/filters-process.selectors';
+// import FilterSort from '../../components/filter-sort/filter-sort';
+// import { sortByDate, sortByRating } from '../../utils/utils';
+// import { getSortingTypeByDate, getSortingTypeByRating } from '../../store/filters-process/filters-process.selectors';
 
 
 function ProductScreen(): JSX.Element {
@@ -32,11 +32,11 @@ function ProductScreen(): JSX.Element {
   const product = useAppSelector(getProduct);
   const reviews = useAppSelector(getReviews);
   const hasReviewsError = useAppSelector(getReviewsErrorStatus);
-  const sortTypeRating = useAppSelector(getSortingTypeByRating);
-  const sortTypeDate = useAppSelector(getSortingTypeByDate);
+  // const sortTypeRating = useAppSelector(getSortingTypeByRating);
+  // const sortTypeDate = useAppSelector(getSortingTypeByDate);
 
-  const sortedByRating = sortByRating[sortTypeRating](reviews);
-  const sortedByDate = sortByDate[sortTypeDate](sortedByRating);
+  // const sortedByRating = sortByRating[sortTypeRating](reviews);
+  // const sortedByDate = sortByDate[sortTypeDate](sortedByRating);
 
 
   if (!product) {
@@ -87,10 +87,10 @@ function ProductScreen(): JSX.Element {
         </div>
       </section>
       <ReviewForm />
-      <FilterSort />
+      {/* <FilterSort /> */}
       {hasReviewsError && <ReviewsError id={id}/>}
       {reviews.length === 0 && !hasReviewsError && <NoReview />}
-      <ReviewsList reviews={sortedByDate} />
+      <ReviewsList reviews={reviews} />
 
       <Footer />
     </div>

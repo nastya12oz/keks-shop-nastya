@@ -2,6 +2,7 @@ import { useAppSelector } from '../../hooks';
 import { getLastReview, getLastReviewErrorStatus } from '../../store/reviews-data/reviews-data.selectors';
 import Review from '../review/review';
 
+
 function LastReview(): JSX.Element {
   const lastReview = useAppSelector(getLastReview);
   const hasError = useAppSelector(getLastReviewErrorStatus);
