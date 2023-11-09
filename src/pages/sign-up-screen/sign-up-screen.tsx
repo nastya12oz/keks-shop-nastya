@@ -1,3 +1,6 @@
+import { Link } from "react-router-dom";
+import { AppRoute } from "../../const";
+
 function SignUpScreen(): JSX.Element {
   return(
     <div className="wrapper">
@@ -39,7 +42,7 @@ function SignUpScreen(): JSX.Element {
                   <button className="btn register-page__btn btn--large" type="submit">Зарегистрироваться</button>
                 </form>
               </div>
-              <p className="register-page__text-wrap">Уже зарегистрированы? <a className="register-page__link" href="login-page.html">Войдите</a> в свой аккаунт.</p>
+              <p className="register-page__text-wrap">Уже зарегистрированы? <Link className="register-page__link" to={AppRoute.LogIn}>Войдите</Link> в свой аккаунт.</p>
             </div>
           </div>
         </section>

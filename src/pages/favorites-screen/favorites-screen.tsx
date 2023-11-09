@@ -1,4 +1,4 @@
-import Header from '../../components/header/header';
+import Header from '../../components/header-auth/header-auth';
 import Footer from '../../components/footer/footer';
 
 function FavoritesScreen(): JSX.Element {

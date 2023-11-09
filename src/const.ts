@@ -1,6 +1,8 @@
 export const BACKEND_URL = 'https://grading.design.pages.academy/v0/keks';
 export const REQUEST_TIMEOUT = 5000;
 export const STARS_COUNT = 5;
+export const USER_EMAIL_KEY_NAME = 'Email';
+export const USER_AVATAR_KEY_NAME = 'avatar-url';
 
 export enum ProductCategory {
   Bisque = 'bisque',
@@ -57,3 +59,10 @@ export const DateFormat = {
   FULL_DATE_FORMAT: 'YYYY-MM-DD',
   DATE_FORMAT: 'DD.MM',
 };
+
+
+export enum AuthorizationStatus {
+  Auth = 'AUTH',
+  NoAuth = 'NO_AUTH',
+  Unknown = 'UNKNOWN'
+}

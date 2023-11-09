@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { Helmet } from 'react-helmet-async';
-import Header from '../../components/header/header';
+import Header from '../../components/header-auth/header-auth';
 
 function NotFoundScreen(): JSX.Element {
   return (

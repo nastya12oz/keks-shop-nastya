@@ -1,3 +1,6 @@
+import { Link } from 'react-router-dom';
+import { AppRoute } from '../../const';
+
 function LoginScreen(): JSX.Element {
   return(
     <div className="wrapper">
@@ -29,7 +32,7 @@ function LoginScreen(): JSX.Element {
                   <button className="btn login-page__btn btn--large" type="submit">Войти</button>
                 </form>
               </div>
-              <p className="login-page__text-wrap">Ещё не зарегистрированы? <a className="login-page__link" href="register-page.html">Создайте</a> аккаунт прямо сейчас.</p>
+              <p className="login-page__text-wrap">Ещё не зарегистрированы? <Link className="login-page__link" to={AppRoute.SignUp}>Создайте</Link> аккаунт прямо сейчас.</p>
             </div>
           </div>
         </section>
