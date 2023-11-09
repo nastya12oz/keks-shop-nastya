@@ -89,7 +89,7 @@ dispatch: AppDispatch;
 state: State;
 extra: AxiosInstance;
 }>(
-  'user/login',
+  'login',
   async (login, {dispatch, extra: api}) => {
     const {data} = await api.post<TUserData>(APIRoute.Login, login);
     saveToken(data.token);
