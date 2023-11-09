@@ -1,4 +1,4 @@
-// import Header from '../../components/header/header';
+import Header from '../../components/header/header';
 import ReviewForm from '../../components/review-form/review-form';
 import Footer from '../../components/footer/footer';
 import { useParams } from 'react-router-dom';
@@ -45,7 +45,7 @@ function ProductScreen(): JSX.Element {
 
   return(
     <div className="wrapper">
-      {/* <Header /> */}
+      <Header />
       <section className="item-details item-details--form-open">
         <div className="container">
           <div className="item-details__wrapper">

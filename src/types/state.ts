@@ -1,7 +1,8 @@
 import { store } from '../store/index';
 import { TProductCardSmallList, TProduct } from './product';
 import { TReviews, TReview } from './review';
-import { TFilterSortRating, TFilterSortDate } from '../../types/filters';
+// import { TFilterSortRating, TFilterSortDate } from '../../types/filters';
+import { AuthorizationStatus } from '../const';
 
 export type State = ReturnType<typeof store.getState>;
 
@@ -30,6 +31,16 @@ export type ReviewsData = {
 export type FiltersData = {
   // firstLevel: FirstLevelFilter | null;
   // secondLevel: SecondLevelFilter[];
-  sortingByRating: TFilterSortRating;
-  sortingByDate: TFilterSortDate;
-};
+  // sortingByRating: TFilterSortRating;
+  // sortingByDate: TFilterSortDate;
+}
+
+export type UserProcess = {
+  authorizationStatus: AuthorizationStatus;
+  avatarUrl: string;
+  email: string;
+  isAlreadyExist: boolean;
+  isLoading: boolean;
+  hasError: boolean;
+  isRegistrationSuccess: boolean;
+}

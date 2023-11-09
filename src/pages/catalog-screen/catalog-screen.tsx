@@ -1,4 +1,4 @@
-import Header from '../../components/header/header';
+import Header from '../../components/header-auth/header-auth';
 import Footer from '../../components/footer/footer';
 import CatalogFilter from '../../components/catalog-filter/catalog-filter';
 import CatalogButton from '../../components/catalog-button/catalog-button';
