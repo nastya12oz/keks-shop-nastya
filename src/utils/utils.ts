@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import { DateFormat } from '../const';
+import { DateFormat, PASSWORD_MIN_LENGTH, REGISTRATION_NAME_MIN_LENGTH, AVATAR_TYPES } from '../const';
 import { TReview } from '../types/review';
 import { TFilterSortRating, TFilterSortDate } from '../types/filters';
 
@@ -28,3 +28,44 @@ export const sortByDate = {
   [TFilterSortDate.Top]: (reviews: TReview[]) => [...reviews].sort(sortByTop),
   [TFilterSortDate.Down]: (reviews: TReview[]) => [...reviews].sort(sortByDown),
 };
+
+export function isRegistrationNameValid(name: string) {
+  return name.length >= REGISTRATION_NAME_MIN_LENGTH;
+}
+
+export function isRegistrationPasswordValid(password: string) {
+  if (
+    !password ||
+      password.length < PASSWORD_MIN_LENGTH ||
+      !/\d/.test(password) ||
+      !/\D/i.test(password) ||
+      false
+  ) {
+    return false;
+  }
+
+  return true;
+}
+
+export function isEmailValid(email: string) {
+  if (
+    !email ||
+      !/^[^ ]+@[^ ]+\.[a-z]{2,3}$/.test(email) ||
+      false
+  ) {
+    return false;
+  }
+
+  return true;
+}
+
+export function isAvatarValid(avatar: File) {
+  if (!avatar) {
+    return true;
+  } else {
+    const fileName = avatar.name.toLowerCase();
+    const rightType = AVATAR_TYPES.some((pic) => fileName.endsWith(pic));
+
+    return rightType && avatar.size <= 1024 * 1024;
+  }
+}

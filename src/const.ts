@@ -3,6 +3,10 @@ export const REQUEST_TIMEOUT = 5000;
 export const STARS_COUNT = 5;
 export const USER_EMAIL_KEY_NAME = 'Email';
 export const USER_AVATAR_KEY_NAME = 'avatar-url';
+export const REGISTRATION_NAME_MIN_LENGTH = 1;
+export const PASSWORD_MIN_LENGTH = 2;
+export const AVATAR_TYPES = ['jpg', 'png'];
+
 
 export enum ProductCategory {
   Bisque = 'bisque',
@@ -47,7 +51,6 @@ export enum APIRoute {
   Review = '/reviews/',
 }
 
-
 export enum NameSpace {
   Products = 'PRODUCTS',
   User = 'USER',
@@ -59,7 +62,6 @@ export const DateFormat = {
   FULL_DATE_FORMAT: 'YYYY-MM-DD',
   DATE_FORMAT: 'DD.MM',
 };
-
 
 export enum AuthorizationStatus {
   Auth = 'AUTH',
