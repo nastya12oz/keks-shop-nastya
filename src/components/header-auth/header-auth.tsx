@@ -5,7 +5,6 @@ import { getEmail, getAvatarUrl } from '../../store/user-process/user-process.se
 function HeaderAuth(): JSX.Element {
   const userEmail = useAppSelector(getEmail);
   const userAvatarUrl = useAppSelector(getAvatarUrl);
-  console.log(userEmail);
 
 
   return(
