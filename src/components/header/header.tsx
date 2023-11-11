@@ -9,8 +9,6 @@ function Header(): JSX.Element {
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const isAuthorized = authorizationStatus === AuthorizationStatus.Auth;
 
-  console.log(authorizationStatus);
-
   return(
     isAuthorized ? <HeaderAuth /> : <HeaderNoAuth />
   );
