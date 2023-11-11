@@ -12,6 +12,8 @@ import NoReview from '../../components/no-review/no-review';
 import ReviewsError from '../../components/reviews-error/reviews-error';
 import ReviewsList from '../../components/reviews-list/reviews-list';
 import Rating from '../../components/rating/rating';
+import { getProductLoadingStatus } from '../../store/products-data/products-data.selectors';
+import Loading from '../../components/loading/loading';
 import AddToFavoritesButtonInProduct from '../../components/add-to-favorites-button-in-product/add-to-favorites-button-in-product';
 // import FilterSort from '../../components/filter-sort/filter-sort';
 // import { sortByDate, sortByRating } from '../../utils/utils';
@@ -21,6 +23,8 @@ import AddToFavoritesButtonInProduct from '../../components/add-to-favorites-but
 function ProductScreen(): JSX.Element {
   const {id} = useParams();
   const dispatch = useAppDispatch();
+  const isProductLoading = useAppSelector(getProductLoadingStatus);
+
   // const navigate = useNavigate();
 
   useEffect(() => {
@@ -42,6 +46,10 @@ function ProductScreen(): JSX.Element {
 
   if (!product) {
     return <NotFoundScreen />;
+  }
+
+  if(isProductLoading) {
+    return <Loading />;
   }
 
   return(
