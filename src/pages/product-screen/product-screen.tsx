@@ -76,6 +76,7 @@ function ProductScreen(): JSX.Element {
                 </div>
                 <div className="item-details__button-wrapper">
                   <AddToFavoritesButtonInProduct id={id} />
+
                   <button className="btn btn--second" type="button">Отменить отзыв</button>
                 </div>
               </div>
