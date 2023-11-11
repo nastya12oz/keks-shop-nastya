@@ -1,5 +1,5 @@
 import { store } from '../store/index';
-import { TProductCardSmallList, TProduct } from './product';
+import { TProductCardSmallList, TProduct, TProducts } from './product';
 import { TReviews, TReview } from './review';
 // import { TFilterSortRating, TFilterSortDate } from '../../types/filters';
 import { AuthorizationStatus } from '../const';
@@ -44,3 +44,10 @@ export type UserProcess = {
   hasError: boolean;
   isRegistrationSuccess: boolean;
 }
+
+export type FavoritesProcess = {
+  favorites: TProducts;
+  isFavoritesLoading: boolean;
+  hasFavoritesError: boolean;
+  isFavoritesDeleting: boolean;
+};

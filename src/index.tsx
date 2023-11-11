@@ -3,10 +3,11 @@ import ReactDOM from 'react-dom/client';
 import App from './components/app/app';
 import { store } from './store';
 import { Provider } from 'react-redux';
-import { fetchProductsListAction, fetchLastReviewAction } from './store/api-actions';
+import { fetchProductsListAction, fetchLastReviewAction, fetchFavoritesAction } from './store/api-actions';
 
 store.dispatch(fetchProductsListAction());
 store.dispatch(fetchLastReviewAction());
+store.dispatch(fetchFavoritesAction());
 
 
 const root = ReactDOM.createRoot(

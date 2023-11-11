@@ -1,6 +1,6 @@
 import { AxiosInstance } from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { TProductCardSmallList, TProduct } from '../types/product';
+import { TProductCardSmallList, TProduct, TProducts } from '../types/product';
 import { TReviews, TReview } from '../types/review.js';
 import { APIRoute, AppRoute } from '../const';
 import { AppDispatch, State } from '../types/state.js';
@@ -144,4 +144,40 @@ export const logoutAction = createAsyncThunk<void, undefined, {
     dropAvatarUrl();
     dropUserEmail();
   },
+);
+
+export const fetchFavoritesAction = createAsyncThunk<TProducts, undefined, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'fetchFavorites',
+  async (_arg, { extra: api }) => {
+    const {data} = await api.get<TProducts>(APIRoute.Favorites);
+    return data;
+  }
+);
+
+export const fetchAddFavoritesAction = createAsyncThunk<TProduct, string, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  ' fetchAddFavorites',
+  async(id, { extra: api }) => {
+    const {data} = await api.put<TProduct>(`${APIRoute.Favorites}/${id}`);
+    return data;
+  }
+);
+
+export const fetchDeleteFavoritesAction = createAsyncThunk<TProduct, string, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  ' fetchDeleteFavorites',
+  async(id, { extra: api }) => {
+    const {data} = await api.delete<TProduct>(`${APIRoute.Favorites}/${id}`);
+    return data;
+  }
 );

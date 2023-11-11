@@ -12,6 +12,7 @@ import NoReview from '../../components/no-review/no-review';
 import ReviewsError from '../../components/reviews-error/reviews-error';
 import ReviewsList from '../../components/reviews-list/reviews-list';
 import Rating from '../../components/rating/rating';
+import AddToFavoritesButtonInProduct from '../../components/add-to-favorites-button-in-product/add-to-favorites-button-in-product';
 // import FilterSort from '../../components/filter-sort/filter-sort';
 // import { sortByDate, sortByRating } from '../../utils/utils';
 // import { getSortingTypeByDate, getSortingTypeByRating } from '../../store/filters-process/filters-process.selectors';
@@ -74,11 +75,8 @@ function ProductScreen(): JSX.Element {
                   </button>
                 </div>
                 <div className="item-details__button-wrapper">
-                  <button className="item-details__like-button">
-                    <svg width="45" height="37" aria-hidden="true">
-                      <use xlinkHref="#icon-like"></use>
-                    </svg><span className="visually-hidden">Понравилось</span>
-                  </button>
+                  <AddToFavoritesButtonInProduct id={id} />
+
                   <button className="btn btn--second" type="button">Отменить отзыв</button>
                 </div>
               </div>

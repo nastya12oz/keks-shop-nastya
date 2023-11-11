@@ -1,10 +1,12 @@
-import { useAppSelector } from '../../hooks';
-import { getProductsList } from '../../store/products-data/products-data.selectors';
 import CatalogCard from '../catalog-card/catalog-card';
+import { TProducts, TProductCardSmallList } from '../../types/product';
+
+type CatalogListProps = {
+  products: TProducts | TProductCardSmallList;
+}
 
 
-function CatalogList(): JSX.Element {
-  const products = useAppSelector(getProductsList);
+function CatalogList({products}: CatalogListProps): JSX.Element {
 
 
   return(

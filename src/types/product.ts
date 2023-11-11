@@ -30,3 +30,5 @@ export type TProduct = {
   rating: number;
   reviewCount: number;
   }
+
+export type TProducts = TProduct[];
