@@ -1,6 +1,7 @@
 import { TProductCardSmall } from '../../types/product';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
+import AddToFavoritesButtonInCatalog from '../add-to-favorites-button-in-catalog/add-to-favorites-button-in-catalog';
 
 
 type CatalogCardProps = {
@@ -9,7 +10,7 @@ type CatalogCardProps = {
 
 function CatalogCard({product}: CatalogCardProps): JSX.Element {
 
-  const { previewImage, previewImageWebp, title, price } = product;
+  const { id, previewImage, previewImageWebp, title, price } = product;
 
   return(
     <div className="card-item card-item--big">
@@ -21,11 +22,8 @@ function CatalogCard({product}: CatalogCardProps): JSX.Element {
           </picture>
         </div>
       </Link>
-      <button className="card-item__favorites"><span className="visually-hidden">Добавить в избранное</span>
-        <svg width="51" height="41" aria-hidden="true">
-          <use xlinkHref="#icon-like"></use>
-        </svg>
-      </button><span className="card-item__price">{price} p</span>
+      <AddToFavoritesButtonInCatalog id={id} />
+      <span className="card-item__price">{price} p</span>
       <Link className="card-item__link" to={(`${AppRoute.Product}`.replace(':id', product.id))}>
         <h3 className="card-item__title"><span>{title}</span></h3>
       </Link>

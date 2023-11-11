@@ -1,10 +1,15 @@
 import { useAppSelector } from '../../hooks';
 import { getEmail, getAvatarUrl } from '../../store/user-process/user-process.selector';
+import { Link } from 'react-router-dom';
+import { AppRoute } from '../../const';
+import { getFavorites } from '../../store/favorites-process/favorites-process.selectors';
 
 
 function HeaderAuth(): JSX.Element {
   const userEmail = useAppSelector(getEmail);
   const userAvatarUrl = useAppSelector(getAvatarUrl);
+  const favorites = useAppSelector(getFavorites);
+  const favoritesCount = favorites.length;
 
 
   return(
@@ -26,15 +31,15 @@ function HeaderAuth(): JSX.Element {
             </div>
           </div>
           <div className="header__buttons">
-            <a className="header__favourite" href="#">
+            <Link className="header__favourite" to={AppRoute.Favorites}>
               <span className="header__favourite-icon">
                 <svg width="33" height="29" aria-hidden="true">
                   <use xlinkHref="#icon-favourite"></use>
                 </svg>
               </span>
-              <span className="header__favourite-number">2</span>
+              <span className="header__favourite-number">{favoritesCount}</span>
               <span className="visually-hidden">Избранное</span>
-            </a>
+            </Link>
             <div className="header__buttons-authorized">
               <div className="header__btn">
                 <a className="btn btn--second" href="#">Выйти</a>

@@ -69,3 +69,22 @@ export function isAvatarValid(avatar: File) {
     return rightType && avatar.size <= 1024 * 1024;
   }
 }
+
+const createCountFormatter = (one: string, few: string, many: string) => (number: number): string => {
+  if (number % 100 >= 11 && number % 100 <= 14) {
+    return many; // For numbers like 11-14, 111-114, 211-214...
+  } else {
+    switch (number % 10) {
+      case 1:
+        return one; // For numbers ending in 1 but not 11 like 21, 31, 41...
+      case 2:
+      case 3:
+      case 4:
+        return few; // For numbers ending in 2-4 but not 12-14 like 22-24, 32-34...
+      default:
+        return many; // For numbers like 0, 5-10, 15-20, 25-30...
+    }
+  }
+};
+
+export const formatKeksCount = createCountFormatter('кекс', 'кекса', 'кексов');

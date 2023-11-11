@@ -55,7 +55,8 @@ export enum NameSpace {
   Products = 'PRODUCTS',
   User = 'USER',
   Reviews = 'REVIEWS',
-  Filters = 'FILTERS'
+  Filters = 'FILTERS',
+  Favorites = 'FAVORITES'
 }
 
 export const DateFormat = {
@@ -68,3 +69,4 @@ export enum AuthorizationStatus {
   NoAuth = 'NO_AUTH',
   Unknown = 'UNKNOWN'
 }
+

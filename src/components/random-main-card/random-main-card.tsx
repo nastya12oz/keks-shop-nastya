@@ -1,6 +1,7 @@
 import { TProductCardSmall } from '../../types/product';
 import { useNavigate } from 'react-router-dom';
 import { AppRoute } from '../../const';
+import AddToFavoritesButtonInCatalog from '../add-to-favorites-button-in-catalog/add-to-favorites-button-in-catalog';
 
 type RandomMainCardProps = {
   card: TProductCardSmall;
@@ -19,12 +20,7 @@ function RandomMainCard({ card }: RandomMainCardProps): JSX.Element {
           </picture>
         </div>
       </a>
-      <button className="card-item__favorites">
-        <span className="visually-hidden">Добавить в избранное</span>
-        <svg width="51" height="41" aria-hidden="true">
-          <use xlinkHref="#icon-like"></use>
-        </svg>
-      </button>
+      <AddToFavoritesButtonInCatalog id={card.id} />
       <a className="card-item__link" href="#">
         <h3 className="card-item__title"><span>{card.title}</span></h3>
       </a>

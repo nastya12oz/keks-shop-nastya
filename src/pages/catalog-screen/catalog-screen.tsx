@@ -7,11 +7,15 @@ import CatalogError from '../../components/catalog-error/catalog-error';
 import { useAppSelector } from '../../hooks';
 import { getProductErrorStatus, getProductsListLoadingStatus } from '../../store/products-data/products-data.selectors';
 import Loading from '../../components/loading/loading';
+import { getProductsList } from '../../store/products-data/products-data.selectors';
+
 
 function CatalogScreen(): JSX.Element {
 
   const hasError = useAppSelector(getProductErrorStatus);
   const isDataLoading = useAppSelector(getProductsListLoadingStatus);
+  const products = useAppSelector(getProductsList);
+
 
   if (isDataLoading && !hasError) {
     return <Loading />;
@@ -27,7 +31,7 @@ function CatalogScreen(): JSX.Element {
         ) : (
           <main>
             <CatalogFilter />
-            <CatalogList />
+            <CatalogList products={products} />
             <CatalogButton />
           </main>
         )
