@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import { DateFormat, PASSWORD_MIN_LENGTH, REGISTRATION_NAME_MIN_LENGTH, AVATAR_TYPES } from '../const';
+import { DateFormat, PASSWORD_MIN_LENGTH, REGISTRATION_NAME_MIN_LENGTH, AVATAR_TYPES, REVIEW_MAX_LENGTH } from '../const';
 import { TReview } from '../types/review';
 import { TFilterSortRating, TFilterSortDate } from '../types/filters';
 
@@ -72,19 +72,38 @@ export function isAvatarValid(avatar: File) {
 
 const createCountFormatter = (one: string, few: string, many: string) => (number: number): string => {
   if (number % 100 >= 11 && number % 100 <= 14) {
-    return many; // For numbers like 11-14, 111-114, 211-214...
+    return many; // 11-14, 111-114, 211-214...
   } else {
     switch (number % 10) {
       case 1:
-        return one; // For numbers ending in 1 but not 11 like 21, 31, 41...
+        return one; //  1,  21, 31, 41...
       case 2:
       case 3:
       case 4:
-        return few; // For numbers ending in 2-4 but not 12-14 like 22-24, 32-34...
+        return few; //  2-4, 22-24, 32-34...
       default:
-        return many; // For numbers like 0, 5-10, 15-20, 25-30...
+        return many; // 0, 5-10, 15-20, 25-30...
     }
   }
 };
 
 export const formatKeksCount = createCountFormatter('кекс', 'кекса', 'кексов');
+
+
+export function validatePositive(positive: string, rating: number) {
+  if (rating > 3) {
+    return Boolean(positive) && positive.length <= REVIEW_MAX_LENGTH;
+  }
+  return true;
+}
+
+export function validateNegative(negative: string, rating: number) {
+  if (rating < 4 && rating > 0) {
+    return Boolean(negative) && negative.length <= REVIEW_MAX_LENGTH;
+  }
+  return true;
+}
+
+export function displayAvailableDigits(digits: string): number {
+  return 499 - digits.length;
+}

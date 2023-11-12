@@ -6,6 +6,10 @@ export const USER_AVATAR_KEY_NAME = 'avatar-url';
 export const REGISTRATION_NAME_MIN_LENGTH = 1;
 export const PASSWORD_MIN_LENGTH = 2;
 export const AVATAR_TYPES = ['jpg', 'png'];
+export const DISPLAYED_PRODUCTS_COUNT = 6;
+export const REVIEW_MAX_LENGTH = 500;
+export const DISPLAYED_REVIEWS_COUNT = 2;
+
 
 
 export enum ProductCategory {

@@ -1,60 +1,171 @@
-function ReviewForm(): JSX.Element {
-  return(
+import classNames from 'classnames';
+import { ChangeEvent, FormEvent, Fragment, useEffect, useState } from 'react';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { fetchReviewsAction, fetchSendReviewAction } from '../../store/api-actions';
+import { getReviewSendingStatus, getReviewSendingErrorStatus } from '../../store/reviews-data/reviews-data.selectors';
+import { STARS_COUNT } from '../../const';
+import { validateNegative, validatePositive, displayAvailableDigits } from '../../utils/utils';
+
+type ReviewFormProps = {
+  id: string | undefined;
+}
+
+function ReviewForm({id}: ReviewFormProps): JSX.Element {
+  const dispatch = useAppDispatch();
+  const isSending = useAppSelector(getReviewSendingStatus);
+  const hasSendingError = useAppSelector(getReviewSendingErrorStatus);
+
+  const [hasError, setHasError] = useState(false);
+  const [formData, setFormData] = useState({
+    rating: 0,
+    positive: '',
+    negative: '',
+  });
+  const [isFormValid, setIsFormValid] = useState({
+    rating: true,
+    positive: true,
+    negative: true,
+  });
+
+  useEffect(() => {
+    setIsFormValid({
+      rating: Boolean(formData.rating),
+      positive: validatePositive(formData.positive, formData.rating),
+      negative: validateNegative(formData.negative, formData.rating),
+    });
+  }, [formData]);
+
+  const [digits, setDigits] = useState({
+    positive: displayAvailableDigits(formData.positive),
+    negative: displayAvailableDigits(formData.negative),
+  });
+
+  const handleFormDataChange = (evt: ChangeEvent<HTMLInputElement>) => {
+    const {name, value} = evt.target;
+    let parsedValue: string | number = value;
+
+    if (name === 'rating') {
+      parsedValue = Number(value);
+    }
+
+    setFormData({
+      ...formData,
+      [name]: parsedValue});
+
+    setDigits({
+      positive: displayAvailableDigits(formData.positive),
+      negative: displayAvailableDigits(formData.negative),
+    });
+  };
+
+  const handleFormSubmit = (evt: FormEvent<HTMLFormElement>) => {
+    evt.preventDefault();
+
+    if (isFormValid.positive && isFormValid.negative && id) {
+      dispatch(fetchSendReviewAction({id, formData}));
+      dispatch(fetchReviewsAction(id));
+    }
+
+    if(!isSending && !hasError) {
+      setHasError(false);
+    }
+
+    if(!isSending && hasSendingError) {
+      setHasError(true);
+    }
+
+    if (!isSending && !hasError) {
+      setFormData({
+        rating: 0,
+        positive: '',
+        negative: '',
+      });
+    }
+
+  };
+
+  return (
     <section className="review-form">
       <div className="container">
         <div className="review-form__wrapper">
           <h2 className="review-form__title">оставить отзыв</h2>
+          {hasError && <span style={{color: '#d94236', fontSize: '24px'}}> Oops the comment has not been sent</span>}
           <div className="review-form__form">
-            <form action="#" method="post" autoComplete="off">
+            <form
+              action="#"
+              method="post"
+              autoComplete="off"
+              onSubmit={handleFormSubmit}
+            >
               <div className="review-form__inputs-wrapper">
-                <div className="custom-input">
+                <div className={classNames('custom-input', {
+                  'is-invalid' : !isFormValid.positive,
+                  'is-valid' : isFormValid.positive
+                })}
+                >
                   <label><span className="custom-input__label">Достоинства</span>
-                    <input type="text" name="advantages" placeholder="Достоинства" required />
+                    <input
+                      type="text"
+                      name="positive"
+                      value={formData.positive}
+                      placeholder="Достоинства"
+                      onChange={handleFormDataChange}
+                      disabled={isSending}
+                    />
                   </label>
+                  {!isFormValid.positive && <span className="custom-input__message">заполните поле</span>}
+                  {formData.rating > 3 && isFormValid.positive && <span className="custom-input__message">осталось {digits.positive} символов</span>}
                 </div>
-                <div className="custom-input">
+                <div className={classNames('custom-input', {
+                  'is-invalid' : !isFormValid.negative,
+                  'is-valid' : isFormValid.negative
+                })}
+                >
                   <label><span className="custom-input__label">Недостатки</span>
-                    <input type="text" name="disadvantages" placeholder="Недостатки" required />
+                    <input
+                      type="text"
+                      name="negative"
+                      value={formData.negative}
+                      placeholder="Недостатки"
+                      onChange={handleFormDataChange}
+                      disabled={isSending}
+                    />
                   </label>
+                  {!isFormValid.negative && <span className="custom-input__message">заполните поле</span>}
+                  {formData.rating < 4 && formData.rating > 0 && formData.negative.length > 0 && <span className="custom-input__message">осталось {digits.negative} символов</span>}
                 </div>
               </div>
               <div className="review-form__submit-wrapper">
                 <div className="review-form__rating-wrapper">
-                  <div className="input-star-rating">
-                    <input type="radio" name="input-star-rating" id="input-star-rating-5" value="5" aria-label="5 звезд" />
-                    <label htmlFor="input-star-rating-5">
-                      <svg width="40" height="40" aria-hidden="true">
-                        <use xlinkHref="#icon-star"></use>
-                      </svg>
-                    </label>
-                    <input type="radio" name="input-star-rating" id="input-star-rating-4" value="4" aria-label="4 звезды" />
-                    <label htmlFor="input-star-rating-4">
-                      <svg width="40" height="40" aria-hidden="true">
-                        <use xlinkHref="#icon-star"></use>
-                      </svg>
-                    </label>
-                    <input type="radio" name="input-star-rating" id="input-star-rating-3" value="3" aria-label="3 звезды" />
-                    <label htmlFor="input-star-rating-3">
-                      <svg width="40" height="40" aria-hidden="true">
-                        <use xlinkHref="#icon-star"></use>
-                      </svg>
-                    </label>
-                    <input type="radio" name="input-star-rating" id="input-star-rating-2" value="2" aria-label="2 звезды" />
-                    <label htmlFor="input-star-rating-2">
-                      <svg width="40" height="40" aria-hidden="true">
-                        <use xlinkHref="#icon-star"></use>
-                      </svg>
-                    </label>
-                    <input type="radio" name="input-star-rating" id="input-star-rating-1" value="1" aria-label="1 звезда" />
-                    <label htmlFor="input-star-rating-1">
-                      <svg width="40" height="40" aria-hidden="true">
-                        <use xlinkHref="#icon-star"></use>
-                      </svg>
-                    </label>
+                  <div className="input-star-rating" >
+                    {(Array.from({length: STARS_COUNT}, (_, k) => (
+                      <Fragment key={`rating__${k}`} >
+                        <input
+                          type="radio"
+                          name="rating"
+                          id={`input-star-rating-${k + 1}`}
+                          value={k + 1}
+                          aria-label={`${k + 1} звезд`}
+                          checked={formData.rating === (k + 1)}
+                          onChange={handleFormDataChange}
+                          required={!formData.rating}
+                        />
+                        <label htmlFor={`input-star-rating-${k + 1}`} >
+                          <svg width={40} height={40} aria-hidden="true">
+                            <use xlinkHref="#icon-star"></use>
+                          </svg>
+                        </label>
+                      </Fragment>
+                    ))).reverse()}
                   </div>
                 </div>
                 <div className="review-form__button-wrapper">
-                  <button className="btn review-form__button" type="submit">Отправить отзыв</button>
+                  <button
+                    className="btn review-form__button"
+                    type="submit"
+                    disabled={!formData.rating || isSending}
+                  >Отправить отзыв
+                  </button>
                 </div>
               </div>
             </form>

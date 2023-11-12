@@ -2,7 +2,7 @@ import './loading.css';
 
 function Loading(): JSX.Element {
   return (
-    <p className="loader">Wait...</p>
+    <p className="loader"></p>
   );
 }
 

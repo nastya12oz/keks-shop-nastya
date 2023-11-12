@@ -17,8 +17,8 @@ function AddToFavoritesButtonInCatalog({id}: AddToFavoritesButtonInCatalogProps)
   const dispatch = useAppDispatch();
   const favorites = useAppSelector(getFavorites);
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
-  const isFavorite = favorites.some((favorite) => favorite.id === id);
   const isAuthorized = authorizationStatus === AuthorizationStatus.Auth;
+  const isFavorite = favorites.some((favorite) => favorite.id === id);
 
   function handleFavoriteClick() {
     if (isAuthorized) {

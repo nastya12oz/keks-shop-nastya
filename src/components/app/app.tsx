@@ -14,6 +14,7 @@ import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 
 function App(): JSX.Element {
 
+
   return(
     <HelmetProvider>
       <HistoryRouter history={browserHistory}>
@@ -21,7 +22,7 @@ function App(): JSX.Element {
           <Route path={AppRoute.Main} element={<WelcomeScreen />} />
           <Route path={AppRoute.Catalog} element={<CatalogScreen />} />
           <Route path ={AppRoute.Favorites} element={<FavoritesScreen />} />
-          <Route path ={AppRoute.Product} element={<ProductScreen />} />
+          <Route path ={AppRoute.Product} element={ <ProductScreen />} />
           <Route path ={AppRoute.LogIn} element={<LoginScreen />} />
           <Route path ={AppRoute.SignUp} element={<SignUpScreen />} />
           <Route path='*'element={<NotFoundScreen />} />
