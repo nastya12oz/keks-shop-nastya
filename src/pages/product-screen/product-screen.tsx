@@ -19,6 +19,7 @@ import { getAuthorizationStatus } from '../../store/user-process/user-process.se
 import { AuthorizationStatus } from '../../const';
 import BackButton from '../../components/back-button/back-button';
 import classNames from 'classnames';
+import { DISPLAYED_REVIEWS_COUNT } from '../../const';
 
 
 // import FilterSort from '../../components/filter-sort/filter-sort';
@@ -32,6 +33,7 @@ function ProductScreen(): JSX.Element {
   const isProductLoading = useAppSelector(getProductLoadingStatus);
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const isAuthorized = authorizationStatus === AuthorizationStatus.Auth;
+
 
   // const navigate = useNavigate();
 
@@ -57,6 +59,14 @@ function ProductScreen(): JSX.Element {
   const handleReviewButtonClick = () => {
     setShowReviewForm(!showReviewForm);
   };
+
+  const [displayedReviewsCount, setdisplayedReviewsCount] = useState(DISPLAYED_REVIEWS_COUNT);
+
+  const handleShowMoreButtonClick = () => {
+    setdisplayedReviewsCount((prevCount) => prevCount + DISPLAYED_REVIEWS_COUNT);
+  };
+
+  const reviewsToShow = reviews.slice(0, displayedReviewsCount);
 
 
   if (!product) {
@@ -114,7 +124,17 @@ function ProductScreen(): JSX.Element {
         {/* <FilterSort /> */}
         {hasReviewsError && <ReviewsError id={id}/>}
         {reviews.length === 0 && !hasReviewsError && <NoReview />}
-        <ReviewsList reviews={reviews} />
+        <section className="comments">
+          <div className="container">
+            <h2 className="visually-hidden">Список комментариев</h2>
+            <ReviewsList reviews={reviewsToShow} />
+
+            <div className="comments__show-more">
+              {reviewsToShow.length < reviews.length ? <button className="btn btn--second comments__button" type="button" onClick={handleShowMoreButtonClick}>Показать еще</button> : null}
+            </div>
+          </div>
+        </section>
+
       </main>
       <Footer />
     </div>

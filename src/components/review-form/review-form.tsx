@@ -62,7 +62,6 @@ function ReviewForm({id}: ReviewFormProps): JSX.Element {
     evt.preventDefault();
 
     if (isFormValid.positive && isFormValid.negative && id) {
-      console.log(formData);
       dispatch(fetchSendReviewAction({id, formData}));
       dispatch(fetchReviewsAction(id));
     }
