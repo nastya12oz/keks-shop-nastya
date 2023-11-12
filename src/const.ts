@@ -1,3 +1,5 @@
+import { TShops } from './types/map';
+
 export const BACKEND_URL = 'https://grading.design.pages.academy/v0/keks';
 export const REQUEST_TIMEOUT = 5000;
 export const STARS_COUNT = 5;
@@ -9,7 +11,8 @@ export const AVATAR_TYPES = ['jpg', 'png'];
 export const DISPLAYED_PRODUCTS_COUNT = 6;
 export const REVIEW_MAX_LENGTH = 500;
 export const DISPLAYED_REVIEWS_COUNT = 2;
-
+export const SHOP_MAP_URL = 'img/content/map-marker2.svg';
+export const PRODUCTION_MAP_URL = 'img/content/map-marker1.svg';
 
 
 export enum ProductCategory {
@@ -74,3 +77,21 @@ export enum AuthorizationStatus {
   Unknown = 'UNKNOWN'
 }
 
+
+export const SweetShops: TShops = {
+  FIRST_SHOP: {
+    name: 'Кондитерская 1',
+    addressCoordinates: [59.970969, 30.316252],
+    address: 'ул. Профессора Попова, 9-15',
+  },
+  SECOND_SHOP: {
+    name: 'Кондитерская 2',
+    addressCoordinates: [59.967947, 30.274708],
+    address: 'Спортивная площадка, д. 10, литер А, пом. 428, Вязовая ул.',
+  },
+  PRODUCTION: {
+    name: 'Производство',
+    addressCoordinates: [59.960380, 30.308725],
+    address: 'ул. Ленина, 10-8',
+  },
+};
