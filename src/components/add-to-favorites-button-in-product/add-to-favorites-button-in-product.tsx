@@ -8,7 +8,7 @@ import { getAuthorizationStatus } from '../../store/user-process/user-process.se
 import { AuthorizationStatus } from '../../const';
 
 type AddToFavoritesButtonInProductProps = {
-  id: string;
+  id: string | undefined;
 }
 
 function AddToFavoritesButtonInProduct({id}: AddToFavoritesButtonInProductProps): JSX.Element {
@@ -21,7 +21,7 @@ function AddToFavoritesButtonInProduct({id}: AddToFavoritesButtonInProductProps)
   const isAuthorized = authorizationStatus === AuthorizationStatus.Auth;
 
   function handleFavoriteClick() {
-    if (isAuthorized) {
+    if (isAuthorized && id) {
       if (isFavorite) {
         dispatch(fetchDeleteFavoritesAction(id));
       } else {

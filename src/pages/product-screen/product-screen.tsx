@@ -110,7 +110,7 @@ function ProductScreen(): JSX.Element {
             </div>
           </div>
         </section>
-        {showReviewForm && <ReviewForm />}
+        {showReviewForm && <ReviewForm id={id} />}
         {/* <FilterSort /> */}
         {hasReviewsError && <ReviewsError id={id}/>}
         {reviews.length === 0 && !hasReviewsError && <NoReview />}

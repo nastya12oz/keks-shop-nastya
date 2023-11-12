@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import { DateFormat, PASSWORD_MIN_LENGTH, REGISTRATION_NAME_MIN_LENGTH, AVATAR_TYPES } from '../const';
+import { DateFormat, PASSWORD_MIN_LENGTH, REGISTRATION_NAME_MIN_LENGTH, AVATAR_TYPES, REVIEW_MAX_LENGTH } from '../const';
 import { TReview } from '../types/review';
 import { TFilterSortRating, TFilterSortDate } from '../types/filters';
 
@@ -88,3 +88,22 @@ const createCountFormatter = (one: string, few: string, many: string) => (number
 };
 
 export const formatKeksCount = createCountFormatter('кекс', 'кекса', 'кексов');
+
+
+export function validatePositive(positive: string, rating: number) {
+  if (rating > 3) {
+    return Boolean(positive) && positive.length <= REVIEW_MAX_LENGTH;
+  }
+  return true;
+}
+
+export function validateNegative(negative: string, rating: number) {
+  if (rating < 4 && rating > 0) {
+    return Boolean(negative) && negative.length <= REVIEW_MAX_LENGTH;
+  }
+  return true;
+}
+
+export function displayAvailableDigits(digits: string): number {
+  return 499 - digits.length;
+}

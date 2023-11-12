@@ -51,7 +51,7 @@ export const fetchSendReviewAction = createAsyncThunk<void, {id: string; formDat
   state: State;
   extra: AxiosInstance;
 }>(
-  'fetchSendReview',
+  'review/fetchSendReview',
   async({id, formData}, {extra: api}) => {
 
     await api.post<void>(`${APIRoute.Review}/${id}`, formData);
