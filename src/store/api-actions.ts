@@ -10,7 +10,6 @@ import { saveAvatarUrl, saveUserEmail, dropAvatarUrl, dropUserEmail } from '../s
 import { redirectToRoute } from './action';
 
 
-
 export const fetchProductsListAction = createAsyncThunk<TProductCardSmallList, undefined, {
   dispatch: AppDispatch;
   state: State;

@@ -38,20 +38,6 @@ export enum ProductType {
 }
 
 
-export enum Fillings {
-  Chocolate = 'Шоколадный',
-  Vegetarian = 'Вегетарианский',
-  NewYork = 'Нью-Йорк',
-  Lemon = 'Лимонный',
-  Vanilla = 'Ваниль',
-  HoneyCake = 'Медовый',
-  Tart = 'Тарт',
-  FunnelCake = 'Mуравейник',
-  BasketCake = 'Корзинка',
-  ChocolateMuffin = 'Шоколадный маффин',
-  BrandMuffin = 'Фирменный маффин',
-}
-
 export const baseDisplayNames = {
   [ProductCategory.Bisque]: 'Бисквит',
   [ProductCategory.Cheesecake]: 'Чизкейк',

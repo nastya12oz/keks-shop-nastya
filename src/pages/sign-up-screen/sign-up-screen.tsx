@@ -1,6 +1,5 @@
 import classNames from 'classnames';
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
-import { Helmet } from 'react-helmet-async';
 import { Link, Navigate } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
@@ -8,6 +7,8 @@ import { registrationAction } from '../../store/api-actions';
 import { getAuthorizationStatus, getUserErrorStatus, getIsAlreadyExistStatus, getUserDataLoadingStatus, getRegistrationSuccessStatus } from '../../store/user-process/user-process.selector';
 import { TUserRegistrationData } from '../../types/user';
 import { isAvatarValid, isEmailValid, isRegistrationNameValid, isRegistrationPasswordValid } from '../../utils/utils';
+import { Helmet } from 'react-helmet-async';
+
 
 function SignupScreen(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -135,7 +136,7 @@ function SignupScreen(): JSX.Element {
   return (
     <div className="wrapper">
       <Helmet>
-        <title>Кондитерская Кекс - Регистрация</title>
+        <title>Кондитерская Кекс - SignUp</title>
       </Helmet>
       <main>
         <section className="register-page">

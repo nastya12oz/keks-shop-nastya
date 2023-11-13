@@ -7,6 +7,7 @@ import { useState, FormEvent } from 'react';
 import { isEmailValid, isRegistrationPasswordValid } from '../../utils/utils';
 import { TAuthData } from '../../types/user';
 import { loginAction } from '../../store/api-actions';
+import { Helmet } from 'react-helmet-async';
 
 
 function LoginScreen(): JSX.Element {
@@ -37,6 +38,9 @@ function LoginScreen(): JSX.Element {
 
   return(
     <div className="wrapper">
+      <Helmet>
+        <title>Кондитерская Кекс - Login</title>
+      </Helmet>
       <main>
         <section className="login-page">
           <div className="login-page__header">

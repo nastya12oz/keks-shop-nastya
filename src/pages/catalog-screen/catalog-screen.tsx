@@ -13,6 +13,7 @@ import { useState } from 'react';
 import BackButton from '../../components/back-button/back-button';
 import { ProductCategory, ProductType } from '../../const';
 import FilterEmpty from '../../components/filter-empty.tsx/filter-empty';
+import { Helmet } from 'react-helmet-async';
 
 function CatalogScreen(): JSX.Element {
 
@@ -47,6 +48,9 @@ function CatalogScreen(): JSX.Element {
 
   return (
     <div className="wrapper">
+      <Helmet>
+        <title>Кондитерская Кекс - Каталог</title>
+      </Helmet>
       <Header />
 
       {hasError ? (
@@ -67,9 +71,9 @@ function CatalogScreen(): JSX.Element {
                 {productsToShow.length > 0 ? (
                   <>
                     <CatalogList products={productsToShow} />
-                    {displayedProductsCount < filteredProducts.length && (
+                    {displayedProductsCount < filteredProducts.length ? (
                       <CatalogButton onShowMoreButtonClick={handleShowMoreButtonClick} />
-                    )}
+                    ) : (<CatalogButton toTop />)}
 
                   </>
                 ) : (

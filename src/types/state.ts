@@ -4,7 +4,6 @@ import { TReviews, TReview } from './review';
 import { AuthorizationStatus } from '../const';
 
 export type State = ReturnType<typeof store.getState>;
-
 export type AppDispatch = typeof store.dispatch;
 
 export type ProductsData = {

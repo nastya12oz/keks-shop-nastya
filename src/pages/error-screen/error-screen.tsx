@@ -1,6 +1,11 @@
+import { Helmet } from 'react-helmet-async';
+
 function ErrorScreen(): JSX.Element {
   return(
     <div className="wrapper">
+      <Helmet>
+        <title>Кондитерская Кекс - 404</title>
+      </Helmet>
       <header className="header">
         <div className="container">
           <div className="header__inner">
