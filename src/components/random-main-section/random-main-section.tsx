@@ -5,13 +5,14 @@ import { getProductsList } from '../../store/products-data/products-data.selecto
 
 function RandomMainSection(): JSX.Element {
   const productsList = useAppSelector(getProductsList);
-  const firstThreeItems = productsList.slice(0, 3);
+  const shuffledProductsList = [...productsList].sort(() => 0.5 - Math.random());
+  const randomThreeItems = shuffledProductsList.slice(0, 3);
 
   return(
     <section className="random-main">
       <div className="container">
         <h2 className="random-main__title">кексы</h2>
-        <RandomMainList randomCards={firstThreeItems} />
+        <RandomMainList randomCards={randomThreeItems} />
       </div>
     </section>
 

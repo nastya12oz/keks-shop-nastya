@@ -7,7 +7,9 @@ import FavoritesEmpty from '../../components/favorites-empty/favorites-empty';
 import FavoritesNumber from '../../components/favorites-number/favorites-number';
 import ClearFavoritesButton from '../../components/clear-favorites-button/clear-favorites-button';
 import BackButton from '../../components/back-button/back-button';
-
+import Loading from '../../components/loading/loading';
+import ErrorScreen from '../error-screen/error-screen';
+import { Helmet } from 'react-helmet-async';
 
 function FavoritesScreen(): JSX.Element {
 
@@ -15,9 +17,20 @@ function FavoritesScreen(): JSX.Element {
   const isFavoritesLoading = useAppSelector(getFavoritesLoadingStatus);
   const hasFavoritesError = useAppSelector(gesFavoritesErrorStatus);
 
+  if(isFavoritesLoading) {
+    return <Loading />;
+  }
+
+  if(hasFavoritesError) {
+    return <ErrorScreen />;
+  }
+
 
   return(
     <div className="wrapper">
+      <Helmet>
+        <title>Кондитерская Кекс - Избранное</title>
+      </Helmet>
 
       <Header />
 

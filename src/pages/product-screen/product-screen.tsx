@@ -20,6 +20,11 @@ import { AuthorizationStatus } from '../../const';
 import BackButton from '../../components/back-button/back-button';
 import classNames from 'classnames';
 import { DISPLAYED_REVIEWS_COUNT, PRODUCT_DESCRIPTION_MAX_LENGTH } from '../../const';
+import ReviewSort from '../../components/review-sort/review-sort';
+import { sortByDate, sortByRating } from '../../utils/utils';
+import { TFilterSortDate, TFilterSortRating } from '../../types/filters';
+import { TReviews } from '../../types/review';
+import { Helmet } from 'react-helmet-async';
 
 
 function ProductScreen(): JSX.Element {
@@ -28,6 +33,13 @@ function ProductScreen(): JSX.Element {
   const isProductLoading = useAppSelector(getProductLoadingStatus);
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const isAuthorized = authorizationStatus === AuthorizationStatus.Auth;
+  const product = useAppSelector(getProduct);
+  const reviews = useAppSelector(getReviews);
+  const hasReviewsError = useAppSelector(getReviewsErrorStatus);
+  const [showReviewForm, setShowReviewForm] = useState(false);
+  const [isFullInfo, setFullInfo] = useState(false);
+  const [sortedReviews, setSortedReviews] = useState(reviews);
+  const [sortOption, setSortOption] = useState('All');
 
 
   useEffect(() => {
@@ -37,11 +49,30 @@ function ProductScreen(): JSX.Element {
     }
   }, [id, dispatch]);
 
-  const product = useAppSelector(getProduct);
-  const reviews = useAppSelector(getReviews);
-  const hasReviewsError = useAppSelector(getReviewsErrorStatus);
-  const [showReviewForm, setShowReviewForm] = useState(false);
-  const [isFullInfo, setFullInfo] = useState(false);
+  useEffect(() => {
+    let sorted: TReviews = [...reviews];
+    switch (sortOption) {
+      case TFilterSortRating.High:
+        sorted = sortByRating[TFilterSortRating.High](sorted);
+        break;
+      case TFilterSortRating.Low:
+        sorted = sortByRating[TFilterSortRating.Low](sorted);
+        break;
+      case TFilterSortDate.Top:
+        sorted = sortByDate[TFilterSortDate.Top](sorted);
+        break;
+      case TFilterSortDate.Down:
+        sorted = sortByDate[TFilterSortDate.Down](sorted);
+        break;
+      default:
+        sorted = sortByRating[TFilterSortRating.All](sorted);
+    }
+    setSortedReviews(sorted);
+  }, [reviews, sortOption]);
+
+  const handleSortChange = (newSortOption: TFilterSortRating | TFilterSortDate) => {
+    setSortOption(newSortOption);
+  };
 
 
   const handleReviewButtonClick = () => {
@@ -54,7 +85,11 @@ function ProductScreen(): JSX.Element {
     setdisplayedReviewsCount((prevCount) => prevCount + DISPLAYED_REVIEWS_COUNT);
   };
 
-  const reviewsToShow = reviews.slice(0, displayedReviewsCount);
+  useEffect(() => {
+    setSortedReviews(reviews);
+  }, [reviews]);
+
+  const reviewsToShow = sortedReviews.slice(0, displayedReviewsCount);
 
   if(isProductLoading) {
     return <Loading />;
@@ -67,6 +102,9 @@ function ProductScreen(): JSX.Element {
 
   return(
     <div className="wrapper">
+      <Helmet>
+        <title>Кондитерская Кекс - Продукт</title>
+      </Helmet>
       <Header />
       <main>
         <h1 className="visually-hidden">{isAuthorized ? 'Карточка: пользователь авторизован' : 'Карточка: пользователь не авторизован' }</h1>
@@ -93,7 +131,7 @@ function ProductScreen(): JSX.Element {
                     <span className="star-rating__count">{product.reviewCount}</span>
                   </div>
                   <div className="item-details__text-wrapper"><span className="item-details__text">{isFullInfo ? product.description : product.description.slice(0, PRODUCT_DESCRIPTION_MAX_LENGTH)}</span>
-                    <button className={classNames('item-details__more', {'visually-hidden': isFullInfo || product.description.length < PRODUCT_DESCRIPTION_MAX_LENGTH})}><span className="visually-hidden">Читать полностью</span>
+                    <button onClick={() => setFullInfo(true)} className={classNames('item-details__more', {'visually-hidden': isFullInfo || product.description.length < PRODUCT_DESCRIPTION_MAX_LENGTH})}><span className="visually-hidden">Читать полностью</span>
                       <svg width="27" height="17" aria-hidden="true">
                         <use xlinkHref="#icon-more"></use>
                       </svg>
@@ -110,7 +148,7 @@ function ProductScreen(): JSX.Element {
           </div>
         </section>
         {showReviewForm && <ReviewForm id={id} />}
-        {/* <FilterSort /> */}
+        <ReviewSort onSortChange={handleSortChange} />
         {hasReviewsError && <ReviewsError id={id}/>}
         {reviews.length === 0 && !hasReviewsError && <NoReview />}
         <section className="comments">

@@ -9,9 +9,6 @@ export enum TFilterSortDate {
   Down = 'сортировка по убыванию',
 }
 
-export type TBase = string;
-export type TFilling = string;
-
 
 export enum TFilterBase {
   Bisque = 'Бисквит',

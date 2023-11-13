@@ -1,9 +1,10 @@
 import { TReview } from '../../types/review';
-// import { getLastReviewErrorStatus } from '../../store/reviews-data/reviews-data.selectors';
-// import { useAppSelector } from '../../hooks';
+import { getLastReviewErrorStatus } from '../../store/reviews-data/reviews-data.selectors';
+import { useAppSelector } from '../../hooks';
 import classNames from 'classnames';
 import Rating from '../rating/rating';
 import { getDateFormat } from '../../utils/utils';
+import Loading from '../loading/loading';
 
 type ReviewProps = {
   review: TReview;
@@ -11,11 +12,11 @@ type ReviewProps = {
 }
 
 function Review({ review, isMain }: ReviewProps): JSX.Element {
-  // const hasError = useAppSelector(getLastReviewErrorStatus);
+  const hasError = useAppSelector(getLastReviewErrorStatus);
 
-  // if (!review || hasError) {
-  //   return <Loading />;
-  // }
+  if (!review || hasError) {
+    return <Loading />;
+  }
 
   const {user, negative, positive, rating, isoDate} = review;
 
