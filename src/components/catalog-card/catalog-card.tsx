@@ -10,7 +10,7 @@ type CatalogCardProps = {
 
 function CatalogCard({product}: CatalogCardProps): JSX.Element {
 
-  const { id, previewImage, previewImageWebp, title, price } = product;
+  const { id, previewImage, previewImageWebp, title, price, isNew } = product;
 
   return(
     <div className="card-item card-item--big">
@@ -21,6 +21,7 @@ function CatalogCard({product}: CatalogCardProps): JSX.Element {
             <img src={previewImage} width={326} height={332} alt={title} />
           </picture>
         </div>
+        {isNew && <span className="card-item__label">Новинка</span>}
       </Link>
       <AddToFavoritesButtonInCatalog id={id} />
       <span className="card-item__price">{price} p</span>

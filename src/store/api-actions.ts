@@ -1,13 +1,14 @@
 import { AxiosInstance } from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { TProductCardSmallList, TProduct, TProducts } from '../types/product';
-import { TReviews, TReview } from '../types/review.js';
+import { TReviews, TReview, TReviewData } from '../types/review.js';
 import { APIRoute, AppRoute } from '../const';
 import { AppDispatch, State } from '../types/state.js';
 import { TUserData, TUserRegistrationData, TAuthData } from '../types/user';
 import { saveToken, dropToken } from '../services/token';
 import { saveAvatarUrl, saveUserEmail, dropAvatarUrl, dropUserEmail } from '../services/user.js';
 import { redirectToRoute } from './action';
+
 
 
 export const fetchProductsListAction = createAsyncThunk<TProductCardSmallList, undefined, {
@@ -46,12 +47,12 @@ export const fetchReviewsAction = createAsyncThunk<TReviews, string, {
   }
 );
 
-export const fetchSendReviewAction = createAsyncThunk<void, {id: string; formData: FormData}, {
+export const fetchSendReviewAction = createAsyncThunk<void, {id: string; formData: TReviewData}, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 }>(
-  'review/fetchSendReview',
+  'fetchSendReview',
   async({id, formData}, {extra: api}) => {
 
     await api.post<void>(`${APIRoute.Review}/${id}`, formData);

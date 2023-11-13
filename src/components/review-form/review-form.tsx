@@ -15,6 +15,7 @@ function ReviewForm({id}: ReviewFormProps): JSX.Element {
   const isSending = useAppSelector(getReviewSendingStatus);
   const hasSendingError = useAppSelector(getReviewSendingErrorStatus);
 
+
   const [hasError, setHasError] = useState(false);
   const [formData, setFormData] = useState({
     rating: 0,
@@ -26,6 +27,7 @@ function ReviewForm({id}: ReviewFormProps): JSX.Element {
     positive: true,
     negative: true,
   });
+
 
   useEffect(() => {
     setIsFormValid({
@@ -40,8 +42,8 @@ function ReviewForm({id}: ReviewFormProps): JSX.Element {
     negative: displayAvailableDigits(formData.negative),
   });
 
-  const handleFormDataChange = (evt: ChangeEvent<HTMLInputElement>) => {
-    const {name, value} = evt.target;
+  const handleFormDataChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const {name, value} = event.target;
     let parsedValue: string | number = value;
 
     if (name === 'rating') {
@@ -58,8 +60,8 @@ function ReviewForm({id}: ReviewFormProps): JSX.Element {
     });
   };
 
-  const handleFormSubmit = (evt: FormEvent<HTMLFormElement>) => {
-    evt.preventDefault();
+  const handleFormSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
 
     if (isFormValid.positive && isFormValid.negative && id) {
       dispatch(fetchSendReviewAction({id, formData}));
@@ -81,8 +83,8 @@ function ReviewForm({id}: ReviewFormProps): JSX.Element {
         negative: '',
       });
     }
-
   };
+
 
   return (
     <section className="review-form">

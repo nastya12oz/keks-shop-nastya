@@ -12,3 +12,8 @@ export type TReview = {
 
 export type TReviews = TReview[];
 
+export type TReviewData = {
+  rating: number;
+  positive: string;
+  negative: string;
+ }
