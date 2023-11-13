@@ -35,7 +35,13 @@ function FavoritesScreen(): JSX.Element {
               <section className="favourites">
 
                 <ClearFavoritesButton favorites={favorites} />
-                <CatalogList products={favorites} />
+
+                <div className="container">
+                  <h2 className="visually-hidden">Каталог</h2>
+                  <div className="catalog__wrapper">
+                    <CatalogList products={favorites} />
+                  </div>
+                </div>
 
               </section>
             </>

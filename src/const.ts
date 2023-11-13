@@ -13,6 +13,7 @@ export const REVIEW_MAX_LENGTH = 500;
 export const DISPLAYED_REVIEWS_COUNT = 2;
 export const SHOP_MAP_URL = 'img/content/map-marker2.svg';
 export const PRODUCTION_MAP_URL = 'img/content/map-marker1.svg';
+export const PRODUCT_DESCRIPTION_MAX_LENGTH = 140;
 
 
 export enum ProductCategory {
@@ -36,13 +37,49 @@ export enum ProductType {
   BrandMuffin = 'brand-muffin'
 }
 
+
+export enum Fillings {
+  Chocolate = 'Шоколадный',
+  Vegetarian = 'Вегетарианский',
+  NewYork = 'Нью-Йорк',
+  Lemon = 'Лимонный',
+  Vanilla = 'Ваниль',
+  HoneyCake = 'Медовый',
+  Tart = 'Тарт',
+  FunnelCake = 'Mуравейник',
+  BasketCake = 'Корзинка',
+  ChocolateMuffin = 'Шоколадный маффин',
+  BrandMuffin = 'Фирменный маффин',
+}
+
+export const baseDisplayNames = {
+  [ProductCategory.Bisque]: 'Бисквит',
+  [ProductCategory.Cheesecake]: 'Чизкейк',
+  [ProductCategory.Shortbread]: 'Песочное',
+  [ProductCategory.Dessert]: 'Десерт',
+};
+
+export const fillingDisplayNames = {
+  [ProductType.Chocolate]: 'Шоколадный',
+  [ProductType.Vanilla]: 'Ваниль',
+  [ProductType.Vegetarian]: 'Вегетарианский',
+  [ProductType.BasketCake]: 'Корзинка',
+  [ProductType.BrandMuffin]: 'Фирменный маффин',
+  [ProductType.ChocolateMuffin]:  'Шоколадный маффин',
+  [ProductType.FunnelCake]: 'Mуравейник',
+  [ProductType.HoneyCake]: 'Медовый',
+  [ProductType.Lemon]: 'Лимонный',
+  [ProductType.NewYork]: 'Нью-Йорк',
+  [ProductType.Tart]: 'Тарт'
+};
+
 export enum AppRoute {
   Main = '/',
   LogIn = '/logIn',
   SignUp = '/SignUp',
   Catalog = '/Catalog',
   Favorites = '/Favorites',
-  Product = '/products/:id',
+  Product = '/ProductPage/:id',
 }
 
 export enum APIRoute {

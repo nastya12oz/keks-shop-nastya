@@ -19,12 +19,7 @@ import { getAuthorizationStatus } from '../../store/user-process/user-process.se
 import { AuthorizationStatus } from '../../const';
 import BackButton from '../../components/back-button/back-button';
 import classNames from 'classnames';
-import { DISPLAYED_REVIEWS_COUNT } from '../../const';
-
-
-// import FilterSort from '../../components/filter-sort/filter-sort';
-// import { sortByDate, sortByRating } from '../../utils/utils';
-// import { getSortingTypeByDate, getSortingTypeByRating } from '../../store/filters-process/filters-process.selectors';
+import { DISPLAYED_REVIEWS_COUNT, PRODUCT_DESCRIPTION_MAX_LENGTH } from '../../const';
 
 
 function ProductScreen(): JSX.Element {
@@ -34,8 +29,6 @@ function ProductScreen(): JSX.Element {
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const isAuthorized = authorizationStatus === AuthorizationStatus.Auth;
 
-
-  // const navigate = useNavigate();
 
   useEffect(() => {
     if (id) {
@@ -47,13 +40,8 @@ function ProductScreen(): JSX.Element {
   const product = useAppSelector(getProduct);
   const reviews = useAppSelector(getReviews);
   const hasReviewsError = useAppSelector(getReviewsErrorStatus);
-  // const sortTypeRating = useAppSelector(getSortingTypeByRating);
-  // const sortTypeDate = useAppSelector(getSortingTypeByDate);
-
-  // const sortedByRating = sortByRating[sortTypeRating](reviews);
-  // const sortedByDate = sortByDate[sortTypeDate](sortedByRating);
-
   const [showReviewForm, setShowReviewForm] = useState(false);
+  const [isFullInfo, setFullInfo] = useState(false);
 
 
   const handleReviewButtonClick = () => {
@@ -68,14 +56,14 @@ function ProductScreen(): JSX.Element {
 
   const reviewsToShow = reviews.slice(0, displayedReviewsCount);
 
+  if(isProductLoading) {
+    return <Loading />;
+  }
 
   if (!product) {
     return <NotFoundScreen />;
   }
 
-  if(isProductLoading) {
-    return <Loading />;
-  }
 
   return(
     <div className="wrapper">
@@ -95,7 +83,8 @@ function ProductScreen(): JSX.Element {
                   <picture>
                     <source type="image/webp" srcSet={product.previewImageWebp} />
                     <img src={product.previewImage} width={241} height={245} alt={product.title} />
-                  </picture><span className="item-details__label">Новинка</span>
+                  </picture>
+                  {product.isNew && <span className="item-details__label">Новинка</span>}
                 </div>
                 <div className="item-details__review-wrapper">
                   <div className="star-rating star-rating--big">
@@ -103,8 +92,8 @@ function ProductScreen(): JSX.Element {
 
                     <span className="star-rating__count">{product.reviewCount}</span>
                   </div>
-                  <div className="item-details__text-wrapper"><span className="item-details__text">Цитрусовый десерт с тонким сливочным вкусом, лёгкой свежестью и низким содержанием калорий сд</span>
-                    <button className="item-details__more"><span className="visually-hidden">Читать полностью</span>
+                  <div className="item-details__text-wrapper"><span className="item-details__text">{isFullInfo ? product.description : product.description.slice(0, PRODUCT_DESCRIPTION_MAX_LENGTH)}</span>
+                    <button className={classNames('item-details__more', {'visually-hidden': isFullInfo || product.description.length < PRODUCT_DESCRIPTION_MAX_LENGTH})}><span className="visually-hidden">Читать полностью</span>
                       <svg width="27" height="17" aria-hidden="true">
                         <use xlinkHref="#icon-more"></use>
                       </svg>

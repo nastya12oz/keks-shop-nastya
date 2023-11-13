@@ -18,6 +18,7 @@ function RandomMainCard({ card }: RandomMainCardProps): JSX.Element {
             <source type="image/webp" srcSet={card.previewImageWebp} />
             <img src={card.previewImage} width={326} height={332}alt={card.title} />
           </picture>
+          {card.isNew && <span className="card-item__label">Новинка</span>}
         </div>
       </a>
       <AddToFavoritesButtonInCatalog id={card.id} />

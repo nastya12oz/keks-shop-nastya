@@ -37,11 +37,9 @@ export const reviewsData = createSlice({
         state.hasReviewSendingError = false;
         state.isReviewSending = true;
       })
-      .addCase(fetchSendReviewAction.fulfilled, (state, action)=> {
+      .addCase(fetchSendReviewAction.fulfilled, (state)=> {
         state.hasReviewSendingError = false;
         state.isReviewSending = false;
-        state.review = action.payload;
-
       })
       .addCase(fetchSendReviewAction.rejected, (state) => {
         state.hasReviewSendingError = true;
